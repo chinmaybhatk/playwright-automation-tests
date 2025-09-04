@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  playwright:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - CI=false
+      - BASE_URL=${BASE_URL:-http://host.docker.internal:3000}
+      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+    command: npx playwright test
+    network_mode: host
+    
+  playwright-headed:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - CI=false
+      - DISPLAY=${DISPLAY:-:0}
+      - BASE_URL=${BASE_URL:-http://host.docker.internal:3000}
+    command: npx playwright test --headed
+    network_mode: host
+    
+  playwright-ui:
+    build: .
+    ports:
+      - "9323:9323"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - CI=false
+      - BASE_URL=${BASE_URL:-http://host.docker.internal:3000}
+    command: npx playwright test --ui-host=0.0.0.0 --ui-port=9323
+    network_mode: host
