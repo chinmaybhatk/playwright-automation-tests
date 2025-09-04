@@ -1,0 +1,22 @@
+{
+  "name": "playwright-automation-tests",
+  "version": "1.0.0",
+  "description": "Playwright automation testing with Docker",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:docker": "docker-compose run --rm playwright",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen"
+  },
+  "keywords": ["playwright", "testing", "automation", "docker"],
+  "author": "Your Name",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.0.0"
+  }
+}
